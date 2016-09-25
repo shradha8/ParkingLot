@@ -14,13 +14,12 @@ public class CommandParserTest {
 
     @Test
     public void shouldParseValidInputCommandToStandardType() {
-        CommandType commandType = commandParser.parse("create_parking_lot");
-        assert(commandType).equals(CommandType.create_parking_lot);
+        CommandParser.CommandType commandType = commandParser.parse("create_parking_lot");
+        assert(commandType).equals(CommandParser.CommandType.create_parking_lot);
     }
 
-    @Test
-    public void shouldErrorOutOnInvalidInputCommand() {
-        CommandType commandType = commandParser.parse("create_parking_lot");
-        assert(commandType).equals(CommandType.create_parking_lot);
+    @Test(expected=IllegalArgumentException.class)
+    public void shouldThrowIllegalArgumentExceptionInvalidInputCommand() {
+        commandParser.parse("blah");
     }
 }
