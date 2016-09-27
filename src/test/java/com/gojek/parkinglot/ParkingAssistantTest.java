@@ -73,7 +73,90 @@ public class ParkingAssistantTest {
 
         String status = parkingAssistant.getStatus();
         assert(status.equals("Slot No.\tRegistration No.\tColour\n1\tKA-01-HH1234\tWhite\n2\tKA-01-HH1235\tBlue"));
-
-
     }
+
+    @Test
+    public void shouldGetSlotNumbersForCarsWithColor() {
+        int noOfSlots = 6;
+        String registrationNumber1 = "KA-01-HH1234";
+        String color1 = "White";
+        String registrationNumber2 = "KA-01-HH1235";
+        String color2 = "Blue";
+        String registrationNumber3 = "KA-01-HH1236";
+        String color3 = "Blue";
+        String registrationNumber4 = "KA-01-HH1237";
+        String color4 = "White";
+        parkingAssistant.createParkingLot(noOfSlots);
+        Ticket ticket1 = parkingAssistant.park(registrationNumber1, color1);
+        Ticket ticket2 = parkingAssistant.park(registrationNumber2, color2);
+        Ticket ticket3 = parkingAssistant.park(registrationNumber3, color3);
+        Ticket ticket4 = parkingAssistant.park(registrationNumber4, color4);
+
+        String slotNumbers = parkingAssistant.getSlotNumbersForCarsWithColor("White");
+        assert(slotNumbers.equals("1, 4"));
+    }
+
+    @Test
+    public void shouldGetRegistrationNumbersForCarsWithColor() {
+        int noOfSlots = 6;
+        String registrationNumber1 = "KA-01-HH1234";
+        String color1 = "White";
+        String registrationNumber2 = "KA-01-HH1235";
+        String color2 = "Blue";
+        String registrationNumber3 = "KA-01-HH1236";
+        String color3 = "Blue";
+        String registrationNumber4 = "KA-01-HH1237";
+        String color4 = "White";
+        parkingAssistant.createParkingLot(noOfSlots);
+        Ticket ticket1 = parkingAssistant.park(registrationNumber1, color1);
+        Ticket ticket2 = parkingAssistant.park(registrationNumber2, color2);
+        Ticket ticket3 = parkingAssistant.park(registrationNumber3, color3);
+        Ticket ticket4 = parkingAssistant.park(registrationNumber4, color4);
+
+        String registrationNumbersForCarsWithColor = parkingAssistant.getRegistrationNumbersForCarsWithColor("White");
+        assert(registrationNumbersForCarsWithColor.equals("KA-01-HH1234, KA-01-HH1237"));
+    }
+
+    @Test
+    public void shouldGetSlotNumberForARegistrationNumber() {
+        int noOfSlots = 6;
+        String registrationNumber1 = "KA-01-HH1234";
+        String color1 = "White";
+        String registrationNumber2 = "KA-01-HH1235";
+        String color2 = "Blue";
+        String registrationNumber3 = "KA-01-HH1236";
+        String color3 = "Blue";
+        String registrationNumber4 = "KA-01-HH1237";
+        String color4 = "White";
+        parkingAssistant.createParkingLot(noOfSlots);
+        Ticket ticket1 = parkingAssistant.park(registrationNumber1, color1);
+        Ticket ticket2 = parkingAssistant.park(registrationNumber2, color2);
+        Ticket ticket3 = parkingAssistant.park(registrationNumber3, color3);
+        Ticket ticket4 = parkingAssistant.park(registrationNumber4, color4);
+
+        String slotNumbers = parkingAssistant.getSlotNumberForARegistrationNumber("KA-01-HH1236");
+        assert(slotNumbers.equals("Allocated slot number: 3"));
+    }
+
+    @Test
+    public void shouldReturnNotFoundIfSlotNumberForARegistrationNumberIsNotFound() {
+        int noOfSlots = 6;
+        String registrationNumber1 = "KA-01-HH1234";
+        String color1 = "White";
+        String registrationNumber2 = "KA-01-HH1235";
+        String color2 = "Blue";
+        String registrationNumber3 = "KA-01-HH1236";
+        String color3 = "Blue";
+        String registrationNumber4 = "KA-01-HH1237";
+        String color4 = "White";
+        parkingAssistant.createParkingLot(noOfSlots);
+        Ticket ticket1 = parkingAssistant.park(registrationNumber1, color1);
+        Ticket ticket2 = parkingAssistant.park(registrationNumber2, color2);
+        Ticket ticket3 = parkingAssistant.park(registrationNumber3, color3);
+        Ticket ticket4 = parkingAssistant.park(registrationNumber4, color4);
+
+        String slotNumbers = parkingAssistant.getSlotNumberForARegistrationNumber("KA-01-HH1239");
+        assert(slotNumbers.equals("Not found"));
+    }
+
 }
